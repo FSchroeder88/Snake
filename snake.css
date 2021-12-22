@@ -1,0 +1,12 @@
+ body {
+     margin: 0px;
+     background-image: url('Snake.jpg');
+    background-position: center;
+ }
+
+.playground {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
