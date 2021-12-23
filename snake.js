@@ -4,23 +4,37 @@ let ctx = canvas.getContext('2d');
 let rows = 30;
 let cols = 30;
 let snake = [{
-    x: 2,
+    x: 7,
     y: 3
-
 }];
 
-let food = {
-    x: 4,
-    y: 5
-}
+let food;
+let playGame = true;
+
 let cellWidth = canvas.width / cols;
 let cellHeight = canvas.height / rows;
 let direction = 'LEFT';
+let foodCollected = false;
 
-setInterval(gameLoop, 500);
-document.addEventListener('keydown', keyDown);
+function stop() {
+    playGame = false;
+}
 
-draw();
+function start() {
+    if (playGame) {
+        placeFood();
+
+        setInterval(gameLoop, 500);
+        document.addEventListener('keydown', keyDown);
+        draw();
+    }else {
+        setInterval(gameLoop, 0);
+        console.log("stop");
+    }
+}
+
+
+
 
 function draw() {
     ctx.fillStyle = 'black';
@@ -31,30 +45,43 @@ function draw() {
     feed(food.x, food.y);
 
     requestAnimationFrame(draw);
+
+
+}
+
+function placeFood() {
+    let randomX = Math.floor(Math.random() * cols);
+    let randomY = Math.floor(Math.random() * rows);
+
+    food = { x: randomX, y: randomY };
 }
 
 function add(x, y) {
     ctx.fillStyle = 'white';
-    ctx.fillRect(x * cellWidth, y * cellHeight, cellWidth -1, cellHeight -1)
+    ctx.fillRect(x * cellWidth, y * cellHeight, cellWidth - 1, cellHeight - 1)
 }
 
 function feed(x, y) {
     ctx.fillStyle = 'green';
-    ctx.fillRect(x * cellWidth, y * cellHeight, cellWidth -1, cellHeight -1);
+    ctx.fillRect(x * cellWidth, y * cellHeight, cellWidth - 1, cellHeight - 1);
 }
 
 function gameLoop() {
-    if (direction == 'LEFT'){
+    if (direction == 'LEFT') {
         snake[0].x--;
     }
-    if (direction == 'RIGHT'){
+    if (direction == 'RIGHT') {
         snake[0].x++;
     }
-    if (direction == 'UP'){
+    if (direction == 'UP') {
         snake[0].y--;
     }
-    if (direction == 'DOWN'){
+    if (direction == 'DOWN') {
         snake[0].y++;
+    }
+
+    if (snake[0].x == food.x && snake[0].y == food.y) {
+        placeFood()
     }
 }
 
@@ -72,4 +99,6 @@ function keyDown(e) {
         direction = 'DOWN';
     }
 }
+
+
 

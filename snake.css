@@ -10,3 +10,24 @@
     justify-content: center;
     align-items: center;
 }
+
+.start {
+    top: 805px;
+    font-size: 30px;
+    margin: 4px 2px;
+    cursor: pointer;
+    width: 150px;
+    height: 40px;
+    background-color: rgb(143, 133, 133);
+}
+
+h1 {
+    margin: 5px;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
